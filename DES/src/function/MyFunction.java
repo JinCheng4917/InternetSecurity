@@ -124,7 +124,6 @@ public class MyFunction {
         int remainder = input.length() % 8;
         switch (remainder) {
             case 0: {
-                this.num = 0;
                 for (int i = 0; i < input.length() / 8; i++) {
                     int j = i * 8;
                     String eightByte = input.substring(j, j + 8);
@@ -133,7 +132,7 @@ public class MyFunction {
                 break;
             }
             case 1: {
-                this.num = 1;
+                this.num = 7;
                 for (int i = 0; i < input.length() / 8; i++) {
                     int j = i * 8;
                     String eightByte = input.substring(j, j + 8);
@@ -144,7 +143,7 @@ public class MyFunction {
                 break;
             }
             case 2: {
-                this.num = 2;
+                this.num = 6;
                 for (int i = 0; i < input.length() / 8; i++) {
                     int j = i * 8;
                     String eightByte = input.substring(j, j + 8);
@@ -155,7 +154,7 @@ public class MyFunction {
                 break;
             }
             case 3: {
-                this.num = 3;
+                this.num = 5;
                 for (int i = 0; i < input.length() / 8; i++) {
                     int j = i * 8;
                     String eightByte = input.substring(j, j + 8);
@@ -177,7 +176,7 @@ public class MyFunction {
                 break;
             }
             case 5: {
-                this.num = 5;
+                this.num = 3;
                 for (int i = 0; i < input.length() / 8; i++) {
                     int j = i * 8;
                     String eightByte = input.substring(j, j + 8);
@@ -188,7 +187,7 @@ public class MyFunction {
                 break;
             }
             case 6: {
-                this.num = 6;
+                this.num = 2;
                 for (int i = 0; i < input.length() / 8; i++) {
                     int j = i * 8;
                     String eightByte = input.substring(j, j + 8);
@@ -199,7 +198,7 @@ public class MyFunction {
                 break;
             }
             case 7: {
-                this.num = 7;
+                this.num = 1;
                 for (int i = 0; i < input.length() / 8; i++) {
                     int j = i * 8;
                     String eightByte = input.substring(j, j + 8);
@@ -210,7 +209,6 @@ public class MyFunction {
                 break;
             }
         }
-
         return byteList;
     }
 
@@ -552,7 +550,6 @@ public class MyFunction {
      * @param s
      */
     public String decode(String s) {
-        this.num = 0;
         ArrayList encodeAsciiList = this.stringToAscii(s);
         ArrayList<String> decimalList = new ArrayList<String>();
         encodeAsciiList.forEach(ascii -> {
