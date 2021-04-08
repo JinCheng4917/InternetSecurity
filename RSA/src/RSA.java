@@ -63,6 +63,7 @@ class RSA {
                     System.out.println("进行解密");
                     ArrayList decodeStringList = myFunction.decode(encodeString, mimePrivateEncodedString, NNum);
                     String decodeString = myFunction.asciiToString(decodeStringList);
+                    System.out.println("**************************      解密完成     *******************************");
                     System.out.println("解密之后的字符为： " + decodeString);
                     break;
                   }
