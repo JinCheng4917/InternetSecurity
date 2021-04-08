@@ -1,7 +1,9 @@
 package function;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class MyFunction {
   /**
@@ -149,19 +151,20 @@ public class MyFunction {
         nums.add((int) kNum);
       }
     }
-    System.out.println(nums);
     return nums;
   }
 
   /**
    * 加密
    *  @param asciiList
-   * @param eNum
    * @param nNum
    * @return
    */
-  public ArrayList<Integer> encode(ArrayList asciiList, int eNum, int nNum) {
-    ArrayList<Integer> encodeList = new ArrayList<Integer>();
+  public ArrayList<Integer> encode(ArrayList asciiList,String mimeEncodeString, int nNum) throws UnsupportedEncodingException {
+    ArrayList<Integer> encodeList = new ArrayList<>();
+    byte[] mimePublicByte = Base64.getMimeDecoder().decode(mimeEncodeString.getBytes());
+    String mimePublicString = new String(mimePublicByte, "utf-8");
+    Integer eNum = Integer.parseInt(mimePublicString.substring(5)) - nNum;
     asciiList.forEach(ascii -> {
       BigInteger asciiBigInteger = new BigInteger(ascii.toString());
       BigInteger eNumBigInteger = new BigInteger(String.valueOf(eNum));
@@ -177,11 +180,14 @@ public class MyFunction {
   /**
    * 解密
    * @param decodeString
-   * @param dNum
    * @param nNum
    * @return
    */
-  public ArrayList<Integer> decode(String decodeString, int dNum, int nNum) {
+  public ArrayList<Integer> decode(String decodeString, String mimeEncodeString, int nNum) throws UnsupportedEncodingException {
+    byte[] mimePrivateByte = Base64.getMimeDecoder().decode(mimeEncodeString.getBytes());
+    String mimePrivateString = new String(mimePrivateByte, "utf-8");
+    System.out.println();
+    Integer dNum = Integer.parseInt(mimePrivateString.substring(6)) - nNum;
     ArrayList asciiList = this.stringToAscii(decodeString);
     ArrayList<Integer> decodeList = new ArrayList<Integer>();
     asciiList.forEach(ascii -> {

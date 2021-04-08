@@ -1,12 +1,14 @@
 import function.MyFunction;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Random;
 import java.util.Scanner;
 
 class RSA {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws UnsupportedEncodingException {
     //欧拉函数值
     int ourlaNum = 0;
     //N的值
@@ -16,25 +18,23 @@ class RSA {
     //K的值
     int KNum = 0;
     MyFunction myFunction = new MyFunction();
-    int num1 = new Random().nextInt(50);
-    int num2 = new Random().nextInt(50);
+    int num1 = new Random().nextInt(100);
+    int num2 = new Random().nextInt(100);
     while (true) {
       if (myFunction.isPrime(num2) && myFunction.isPrime(num1) && num2 > 10 && num1 > 10) {
         NNum = myFunction.karatsuba(num1, num2);
         ourlaNum = myFunction.minCommonMultiple(num1 - 1, num2 - 1);
-        System.out.println("num1 为： " + num1);
-        System.out.println("num2 为： " + num2);
-        System.out.println("N为： " + NNum);
-        System.out.println("欧拉值为： "  + ourlaNum);
         int eNum = new Random().nextInt(ourlaNum -1);
-        System.out.println(eNum);
         while (true) {
           if (myFunction.maxCommonDivisor(eNum, ourlaNum) == 1 && eNum > 1 && eNum < 50) {
-            System.out.println("选择的随机数e为 ：" + eNum);
             ArrayList nums = myFunction.getDNumAndKNum(eNum, ourlaNum);
             DNum = (int) nums.get(0);
-            System.out.println("公钥为：" + "(" + eNum+  "," + NNum+ ")");
-            System.out.println("私钥为：" + "(" + DNum+  "," + NNum+ ")");
+            String publicKey = "hebut" + (eNum + NNum);
+            String privateKey = "iHebut" + (DNum + NNum);
+            String mimePublicEncodedString = Base64.getMimeEncoder().encodeToString(publicKey.getBytes("utf-8"));
+            String mimePrivateEncodedString = Base64.getMimeEncoder().encodeToString(privateKey.getBytes("utf-8"));
+            System.out.println("公钥为：" + mimePublicEncodedString);
+            System.out.println("私钥为：" + mimePrivateEncodedString);
 
             System.out.println("请输入明文：");
             Scanner input = new Scanner(System.in);
@@ -45,7 +45,7 @@ class RSA {
              */
             ArrayList asciiList = myFunction.stringToAscii(theInput);
 
-            ArrayList encodeList = myFunction.encode(asciiList,eNum, NNum);
+            ArrayList encodeList = myFunction.encode(asciiList,mimePublicEncodedString, NNum);
             String encodeString = myFunction.asciiToString(encodeList);
             System.out.println("**************************      加密完成     *******************************");
             System.out.println("加密之后的字符为： " + encodeString);
@@ -61,7 +61,7 @@ class RSA {
                   case "Y":
                   case "": {
                     System.out.println("进行解密");
-                    ArrayList decodeStringList = myFunction.decode(encodeString, DNum, NNum);
+                    ArrayList decodeStringList = myFunction.decode(encodeString, mimePrivateEncodedString, NNum);
                     String decodeString = myFunction.asciiToString(decodeStringList);
                     System.out.println("解密之后的字符为： " + decodeString);
                     break;
@@ -88,8 +88,8 @@ class RSA {
 
         break;
       } else {
-        num1 = new Random().nextInt(50);
-        num2 = new Random().nextInt(50);
+        num1 = new Random().nextInt(100);
+        num2 = new Random().nextInt(100);
         continue;
       }
     }
