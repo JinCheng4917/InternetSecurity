@@ -79,3 +79,61 @@ This is repository of InternetSecurity
 
 
 
+## 实验二 [RSA加密](https://www.jianshu.com/p/685cfeffe703)
+
+
+#### 示例1  解密时输入不符合要求
+> 公钥为：aGVidXQ3Njgy
+> 私钥为：aUhlYnV0ODcxNA==
+> 请输入明文：
+> dsahdjkhasjkdh
+> **************************      加密完成     *******************************
+> 加密之后的字符为： ᝼ࡢᅮ୻᝼គኢ୻ᅮࡢគኢ᝼୻
+>           
+> 是否进行解密?(Y/n)
+> djsahdj
+> 您的输入有误，请重新输入： 
+> dsd
+> 您的输入有误，请重新输入： 
+> 
+> 进行解密
+> 
+> 解密之后的字符为： dsahdjkhasjkdh
+> 
+> Process finished with exit code 0
+
+#### 示例2 不进行解密
+> 公钥为：aGVidXQyNTY4
+> 私钥为：aUhlYnV0MzQ4MA==
+> 请输入明文：
+> 「
+> **************************      加密完成     *******************************
+> 加密之后的字符为： ۀ
+>           
+> 是否进行解密?(Y/n)
+> n
+> 您没有选择解密
+> 
+> Process finished with exit code 0
+> 
+
+#### 示例3 进行解密（输入回车（默认为Y） / 输入Y）
+> 公钥为：aGVidXQxOTQw
+> 私钥为：aUhlYnV0MTk0MA==
+> 请输入明文：
+> sdjkhjkshadjk
+> **************************      加密完成     *******************************
+> 加密之后的字符为： ш-ѱۮΙѱۮшΙʲ-ѱۮ
+>           
+> 是否进行解密?(Y/n)
+> 
+> 进行解密
+> 
+> 解密之后的字符为： sdjkhjkshadjk
+> 
+> Process finished with exit code 0
+
+
+
+
+
