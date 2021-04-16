@@ -588,7 +588,7 @@ public class MyFunction {
         decodeStringList.forEach(decodeString -> {
             toReturnDecodeString.set(toReturnDecodeString + decodeString.toString());
         });
-        return toReturnDecodeString.get().substring(0, toReturnDecodeString.get().length() - this.num);
+        return toReturnDecodeString.get().replace("0", "");
     }
 
     /**

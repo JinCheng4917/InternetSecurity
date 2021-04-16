@@ -186,7 +186,6 @@ public class MyFunction {
   public ArrayList<Integer> decode(String decodeString, String mimeEncodeString, int nNum) throws UnsupportedEncodingException {
     byte[] mimePrivateByte = Base64.getMimeDecoder().decode(mimeEncodeString.getBytes());
     String mimePrivateString = new String(mimePrivateByte, "utf-8");
-    System.out.println();
     Integer dNum = Integer.parseInt(mimePrivateString.substring(6)) - nNum;
     ArrayList asciiList = this.stringToAscii(decodeString);
     ArrayList<Integer> decodeList = new ArrayList<Integer>();
