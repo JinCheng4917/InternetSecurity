@@ -1,5 +1,7 @@
 package function;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -153,6 +155,108 @@ public class MyFunction {
     }
     return nums;
   }
+
+  /**
+   * 创建文件
+   * @param destFileName
+   * @return
+   */
+  public boolean createFile(String destFileName) {
+    File file = new File(destFileName);
+    if(file.exists()) {
+      System.out.println("创建单个文件" + destFileName + "失败，目标文件已存在！");
+      return false;
+    }
+    if (destFileName.endsWith(File.separator)) {
+      System.out.println("创建单个文件" + destFileName + "失败，目标文件不能为目录！");
+      return false;
+    }
+    //判断目标文件所在的目录是否存在
+    if(!file.getParentFile().exists()) {
+      //如果目标文件所在的目录不存在，则创建父目录
+      System.out.println("目标文件所在目录不存在，准备创建它！");
+      if(!file.getParentFile().mkdirs()) {
+        System.out.println("创建目标文件所在目录失败！");
+        return false;
+      }
+    }
+    //创建目标文件
+    try {
+      if (file.createNewFile()) {
+        System.out.println("创建单个文件" + destFileName + "成功！");
+        return true;
+      } else {
+        System.out.println("创建单个文件" + destFileName + "失败！");
+        return false;
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.out.println("创建单个文件" + destFileName + "失败！" + e.getMessage());
+      return false;
+    }
+  }
+
+
+  /**
+   * 创建文件夹
+   * @param destDirName
+   * @return
+   */
+  public boolean createDir(String destDirName) {
+    File dir = new File(destDirName);
+    if (dir.exists()) {
+      System.out.println("创建目录" + destDirName + "失败，目标目录已经存在");
+      return false;
+    }
+    if (!destDirName.endsWith(File.separator)) {
+      destDirName = destDirName + File.separator;
+    }
+    //创建目录
+    if (dir.mkdirs()) {
+      System.out.println("创建目录" + destDirName + "成功！");
+      return true;
+    } else {
+      System.out.println("创建目录" + destDirName + "失败！");
+      return false;
+    }
+  }
+
+  /**
+   * 字符串转换unicode
+   * @param string
+   * @return
+   */
+  public  String string2Unicode(String string) {
+    StringBuffer unicode = new StringBuffer();
+    for (int i = 0; i < string.length(); i++) {
+      // 取出每一个字符
+      char c = string.charAt(i);
+      // 转换为unicode
+      unicode.append("\\u" + Integer.toHexString(c));
+    }
+
+    return unicode.toString();
+  }
+
+  /**
+   * unicode 转字符串
+   * @param unicode 全为 Unicode 的字符串
+   * @return
+   */
+  public String unicode2String(String unicode) {
+    StringBuffer string = new StringBuffer();
+    String[] hex = unicode.split("\\\\u");
+
+    for (int i = 1; i < hex.length; i++) {
+      // 转换出每一个代码点
+      int data = Integer.parseInt(hex[i], 16);
+      // 追加成string
+      string.append((char) data);
+    }
+
+    return string.toString();
+  }
+
 
   /**
    * 加密

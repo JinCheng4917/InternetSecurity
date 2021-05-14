@@ -21,8 +21,8 @@ public class DES {
         Scanner selectScanner = new Scanner(System.in);
 
         while (true) {
+            Integer selectKey = selectScanner.nextInt();
             try {
-                Integer selectKey = selectScanner.nextInt();
                 if (selectKey.equals(1) || selectKey.equals(2) || selectKey.equals(3)) {
                     switch (selectKey) {
                         case 1: {
@@ -33,7 +33,8 @@ public class DES {
                             /**
                              * 将输入的字节转换为ascii码list
                              */
-                            ArrayList asciiList = myFunction.stringToAscii(input);
+                            String unicodeInput = myFunction.string2Unicode(input);
+                            ArrayList asciiList = myFunction.stringToAscii(unicodeInput);
                             String encodeString = encodeAndDecode(input, asciiList, myFunction);
                             System.out.println("是否进行解密?(Y/n)");
                             Scanner decodeScanner = new Scanner(System.in);
@@ -133,6 +134,7 @@ public class DES {
                     continue;
                 }
             } catch (Exception e) {
+                System.out.println(e);
                 System.out.println("您的输入有误，请重新输入选项： ");
                 Scanner newScanner = new Scanner(System.in);
                 selectScanner = newScanner;
